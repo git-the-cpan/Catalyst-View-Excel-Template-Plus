@@ -3,13 +3,13 @@ package Catalyst::View::Excel::Template::Plus;
 use strict;
 use warnings;
 
-use NEXT;
+use MRO::Compat;
 use Excel::Template::Plus;
 use Scalar::Util 'blessed';
 
 use Catalyst::Exception;
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
 use base 'Catalyst::View';
@@ -22,10 +22,10 @@ __PACKAGE__->mk_accessors(qw[
 
 sub new {
     my($class, $c, $args) = @_;
-    my $self = $class->NEXT::new($c, $args);
-    
+    my $self = $class->next::method($c, $args);
+
     my $config = $c->config->{'View::Excel::Template::Plus'};
-    
+
     $args->{etp_engine} ||= $config->{etp_engine} || 'TT';
     $args->{etp_config} ||= $config->{etp_config} || {};
     $args->{etp_params} ||= $config->{etp_params} || {};
@@ -33,7 +33,11 @@ sub new {
     $self->etp_engine($args->{etp_engine});
     $self->etp_config($args->{etp_config});
     $self->etp_params($args->{etp_params});
-    
+
+    if ( defined $self->config->{TEMPLATE_EXTENSION} && $self->config->{TEMPLATE_EXTENSION} !~ /\./ ){
+        $c->log->warn(qq/Missing . (dot) in TEMPLATE_EXTENSION ( $class ), the attitude has changed with version 0.02./);
+    }
+
     return $self;
 }
 
@@ -41,39 +45,39 @@ sub process {
     my $self = shift;
     my $c    = shift;
     my @args = @_;
-    
+
     my $template = $self->get_template_filename($c);
-    
+
     (defined $template)
-        || die 'No template specified for rendering';   
-    
+        || die 'No template specified for rendering';
+
     my $etp_engine = $c->stash->{etp_engine} || $self->etp_engine;
     my $etp_config = $c->stash->{etp_config} || $self->etp_config;
     my $etp_params = $c->stash->{etp_params} || $self->etp_params;
-    
+
     my $excel = $self->create_template_object($c => (
         engine   => $etp_engine,
         template => $template,
         config   => $etp_config,
-        params   => $etp_params,        
+        params   => $etp_params,
     ));
 
     $excel->param( $self->get_template_params($c) );
-    
+
     $c->response->content_type('application/x-msexcel');
     $c->response->body($excel->output);
 }
 
 sub create_template_object {
     my ($self, $c, %options) = @_;
-    Excel::Template::Plus->new( %options );    
+    Excel::Template::Plus->new( %options );
 }
 
 sub get_template_filename {
     my ($self, $c) = @_;
     $c->stash->{template}
-        || 
-    ($c->action . '.xml.' . $self->config->{TEMPLATE_EXTENSION});    
+        ||
+    ($c->action . '.xml' . $self->config->{TEMPLATE_EXTENSION});
 }
 
 sub get_template_params {
@@ -94,10 +98,14 @@ Catalyst::View::Excel::Template::Plus - A Catalyst View for Excel::Template::Plu
 
 =head1 SYNOPSIS
 
+# use the helper to create your View
+
+    MyApp_create.pl view Excel Excel::Template::Plus
+
 =head1 DESCRIPTION
 
 This is a Catalyst View subclass which can handle rendering excel content
-through Excel::Template::Plus. 
+through Excel::Template::Plus.
 
 =head1 CONFIG OPTIONS
 
@@ -138,6 +146,10 @@ to cpan-RT.
 =head1 AUTHOR
 
 Stevan Little E<lt>stevan.little@iinteractive.comE<gt>
+
+=head1 CONTRIBUTORS
+
+Robert Bohne E<lt>rbo@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

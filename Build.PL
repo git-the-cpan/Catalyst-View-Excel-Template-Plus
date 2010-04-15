@@ -7,7 +7,7 @@ my $build = Module::Build->new(
     license => 'perl',
     requires => {   
         'Catalyst::Runtime'     => '0',
-        'Excel::Template::Plus' => '0.03',
+        'Excel::Template::Plus' => '0.05',
     },
     optional => {
     },
@@ -20,6 +20,11 @@ my $build = Module::Build->new(
     add_to_cleanup => [
         'META.yml', '*.bak', '*.gz', 'Makefile.PL',
     ],
+    meta_merge => {
+        resources => {
+            repository  => 'http://github.com/stevan/catalyst-view-excel-template-plus/'
+        }
+    },
 );
 
 $build->create_build_script;

@@ -1,23 +1,28 @@
 ---
-name: Catalyst-View-Excel-Template-Plus
-version: 0.01
+abstract: 'A Catalyst View for Excel::Template::Plus'
 author:
   - 'Stevan Little E<lt>stevan.little@iinteractive.comE<gt>'
-abstract: A Catalyst View for Excel::Template::Plus
-license: perl
-resources:
-  license: http://dev.perl.org/licenses/
-requires:
-  Catalyst::Runtime: 0
-  Excel::Template::Plus: 0.03
 build_requires:
   Test::Exception: 0.21
   Test::More: 0.62
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3607'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Catalyst-View-Excel-Template-Plus
 provides:
+  Catalyst::Helper::View::Excel::Template::Plus:
+    file: lib/Catalyst/Helper/View/Excel/Template/Plus.pm
   Catalyst::View::Excel::Template::Plus:
     file: lib/Catalyst/View/Excel/Template/Plus.pm
-    version: 0.01
-generated_by: Module::Build version 0.2805
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+    version: 0.02
+requires:
+  Catalyst::Runtime: 0
+  Excel::Template::Plus: 0.05
+resources:
+  license: http://dev.perl.org/licenses/
+  repository: http://github.com/stevan/catalyst-view-excel-template-plus/
+version: 0.02
