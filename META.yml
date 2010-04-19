@@ -1,28 +1,24 @@
----
-abstract: 'A Catalyst View for Excel::Template::Plus'
-author:
-  - 'Stevan Little E<lt>stevan.little@iinteractive.comE<gt>'
-build_requires:
-  Test::Exception: 0.21
-  Test::More: 0.62
+--- #YAML:1.0
+name:               Catalyst-View-Excel-Template-Plus
+version:            0.02_1
+abstract:           ~
+author:  []
+license:            unknown
+distribution_type:  module
 configure_requires:
-  Module::Build: 0.36
-generated_by: 'Module::Build version 0.3607'
-license: perl
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
-name: Catalyst-View-Excel-Template-Plus
-provides:
-  Catalyst::Helper::View::Excel::Template::Plus:
-    file: lib/Catalyst/Helper/View/Excel/Template/Plus.pm
-  Catalyst::View::Excel::Template::Plus:
-    file: lib/Catalyst/View/Excel/Template/Plus.pm
-    version: 0.02
+    ExtUtils::MakeMaker:  0
+build_requires:
+    ExtUtils::MakeMaker:  0
 requires:
-  Catalyst::Runtime: 0
-  Excel::Template::Plus: 0.05
-resources:
-  license: http://dev.perl.org/licenses/
-  repository: http://github.com/stevan/catalyst-view-excel-template-plus/
-version: 0.02
+    Catalyst::Runtime:    0
+    Excel::Template::Plus:  0.05
+    Test::Exception:      0.21
+    Test::More:           0.62
+no_index:
+    directory:
+        - t
+        - inc
+generated_by:       ExtUtils::MakeMaker version 6.55_02
+meta-spec:
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4
