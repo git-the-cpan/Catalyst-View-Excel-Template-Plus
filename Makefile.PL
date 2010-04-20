@@ -8,7 +8,8 @@ WriteMakefile
                            'Catalyst::Runtime' => '0',
                            'Excel::Template::Plus' => '0.05',
                            'Test::Exception' => '0.21',
-                           'Test::More' => '0.62'
+                           'Test::More' => '0.62',
+                           'parent' => 0
                          },
           'INSTALLDIRS' => 'site',
           'EXE_FILES' => [],
