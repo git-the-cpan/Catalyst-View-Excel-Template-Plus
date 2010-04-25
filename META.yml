@@ -19,11 +19,11 @@ provides:
     file: lib/Catalyst/Helper/View/Excel/Template/Plus.pm
   Catalyst::View::Excel::Template::Plus:
     file: lib/Catalyst/View/Excel/Template/Plus.pm
-    version: 0.02_2
+    version: 0.03
 requires:
   Catalyst::Runtime: 0
   Excel::Template::Plus: 0.05
 resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/stevan/catalyst-view-excel-template-plus/
-version: 0.02_2
+version: 0.03
